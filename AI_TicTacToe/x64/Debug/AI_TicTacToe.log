@@ -1,3 +1,2 @@
 ﻿  main.cpp
-C:\Users\elith\source\repos\AI_TicTacToe\AI_TicTacToe\main.cpp(58,6): warning C4326: return type of 'main' should be 'int' instead of 'void'
   AI_TicTacToe.vcxproj -> C:\Users\elith\source\repos\AI_TicTacToe\x64\Debug\AI_TicTacToe.exe
