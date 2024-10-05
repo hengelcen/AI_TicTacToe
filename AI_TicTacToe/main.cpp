@@ -4,126 +4,112 @@
 #include <cstdlib>
 #include <ctime>
 #include <limits>
+#include <queue>
 
 using namespace std;
 enum player {
 	x,
 	o
 };
+struct moves {
+	int move;
+	int depth;
+};
+struct moveNum {
+	int move;
+	int depth;
+	int moveSpace;
+};
+
 class ultimeTicTacToe {
 
 public:
 	int bestMove(player playerL, int boardNumber) {
-		int bestScore;
-			if (playerL == x) {
-				bestScore = (numeric_limits<int>::max()) * -1;
-			}
-			else {
-				bestScore = (numeric_limits<int>::max());
-			}
-			int move = 0;
+		int bestScore = -numeric_limits<double>::infinity(); 
+		vector<moveNum> listMoves;
+		int move = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int b = 0; b < 3; b++) {
 				if (board[boardNumber - 1][i * 3 + b] == '_') {
-					board[boardNumber - 1][i * 3 + b] = playerL == o?  'O' : 'X';
-					int score = minimax(boardNumber, 0, playerL);
-					board[boardNumber - 1][i * 3 + b] = '_';
-					if (playerL == o) {
-						if (score > bestScore) {
-							bestScore = score;
-							move = i * 3 + b;
-						}
-					}
-					else {
-						if (score > bestScore) {
-							bestScore = score;
-							move = i * 3 + b;
-						}
-					}
+					board[boardNumber - 1][i * 3 + b] = 'X';
+					moves score = minimax(boardNumber, 0, false);
+					listMoves.push_back({ score.move, score.depth, i * 3 + b });
+					board[boardNumber - 1][i * 3 + b] = '_'; 
 				}
 			}
 		}
+
 		return move;
 	}
 
 	int checkWinner(int currentBoard) {
-		int winner = -2;
-		bool tie = true;
-		for (int i = 0; i < 3; i++) {
-			if ((board[currentBoard - 1][0 + 3 * i] == 'X' && board[currentBoard - 1][1 + 3 * i] == 'X' && board[currentBoard - 1][2 + 3 * i] == 'X') ||
-				(board[currentBoard - 1][i] == 'X' && board[currentBoard - 1][3 + i] == 'X' && board[currentBoard - 1][6 + i] == 'X')) winner = 1;
+		auto currB = board[currentBoard - 1];
 
-	   		else if ((board[currentBoard - 1][0 + 3 * i] == 'O' && board[currentBoard - 1][1 + 3 * i] == 'O' && board[currentBoard - 1][2 + 3 * i] == 'O') ||
-				(board[currentBoard - 1][i] == 'O' && board[currentBoard - 1][3 + i] == 'O' && board[currentBoard - 1][6 + i] == 'O')) winner = -1;
+		
+		for (int i = 0; i < 3; i++) {
+			if (currB[i * 3] == currB[i * 3 + 1] && currB[i * 3 + 1] == currB[i * 3 + 2] && currB[i * 3] != '_') {
+				return (currB[i * 3] == 'X') ? 1 : -1;
+			}
 		}
-		if (board[currentBoard - 1][0] == 'X' && board[currentBoard - 1][4] == 'X' && board[currentBoard - 1][8] == 'X' ||
-			board[currentBoard - 1][2] == 'X' && board[currentBoard - 1][4] == 'X' && board[currentBoard - 1][6] == 'X') winner = 1;
-		else if (board[currentBoard - 1][0] == 'O' && board[currentBoard - 1][4] == 'O' && board[currentBoard - 1][8] == 'O' ||
-			board[currentBoard - 1][2] == 'O' && board[currentBoard - 1][4] == 'O' && board[currentBoard - 1][6] == 'O') winner = -1;
+
+		for (int i = 0; i < 3; i++) {
+			if (currB[i] == currB[i + 3] && currB[i + 3] == currB[i + 6] && currB[i] != '_') {
+				return (currB[i] == 'X') ? 1 : -1;
+			}
+		}
+
+		if (currB[0] == currB[4] && currB[4] == currB[8] && currB[0] != '_') {
+			return (currB[0] == 'X') ? 1 : -1;
+		}
+		if (currB[2] == currB[4] && currB[4] == currB[6] && currB[2] != '_') {
+			return (currB[2] == 'X') ? 1 : -1;
+		}
+
 		for (int i = 0; i < 9; i++) {
-			if (board[currentBoard - 1][i] == '_') tie = false;
+			if (currB[i] == '_') {
+				return -2; 
+			}
 		}
-		if (tie) return 0; //fix
-		else return winner;
-		/*
-		  -1 for O wins,
-		  +1 for X wins,
-		   0 for tie,
-		  -2 for nothing
-		*/
+		return 0;
 	}
 
-	int minimax(int currentBoard, int depth, player playerL) {
-		int won = checkWinner(currentBoard);
-		if (won != -2) {
-			return won;
-		}
-		if (playerL == x) {
-			int bestScore = (numeric_limits<int>::max()) * -1;
-			for (int i = 0; i < 3; i++) {
-				for (int b = 0; b < 3; b++) {
-					if (board[currentBoard - 1][i * 3 + b] == '_') {
-						board[currentBoard - 1][i * 3 + b] = 'X';
-						int score = minimax(currentBoard, depth + 1, x);
-						board[currentBoard - 1][i * 3 + b] = '_';
-						bestScore = max(score, bestScore);
-					}
 
+	moves minimax(int boardNum, int depth, bool isMaximizing) {
+		char result = checkWinner(boardNum);
+		if (result != -2) {
+			return moves{ result, depth };
+		}
+		auto& currBoard = board[boardNum - 1]; 
+
+		if (isMaximizing) {
+			int bestScore = numeric_limits<int>::min();
+			for (int i = 0; i < 9; i++) {
+				if (currBoard[i] == '_') {
+					currBoard[i] = 'X';
+					moves score = minimax(boardNum, depth + 1, false);
+					depth = depth + 1;
+					currBoard[i] = '_'; 
+					bestScore = max(score.move, bestScore);
 				}
 			}
-			return bestScore;
+			return moves{ bestScore, depth };
 		}
 		else {
-			int bestScore = (numeric_limits<int>::max());
-			for (int i = 0; i < 3; i++) {
-				for (int b = 0; b < 3; b++) {
-					if (board[currentBoard - 1][i * 3 + b] == '_') {
-						board[currentBoard - 1][i * 3 + b] = 'O';
-						int score = minimax(currentBoard, depth + 1, o);
-						board[currentBoard - 1][i * 3 + b] = '_';
-						bestScore = min(score, bestScore);
-					}
+			int bestScore = numeric_limits<int>::max();
+			for (int i = 0; i < 9; i++) {
+				if (currBoard[i] == '_') {
+					currBoard[i] = 'O'; 
+					moves score = minimax(boardNum, depth + 1, true);
+					depth = depth + 1;
+
+					currBoard[i] = '_';
+					bestScore = min(score.move, bestScore);
 				}
 			}
-			return bestScore;
-
+			return moves{ bestScore, depth };
 		}
 	}
-	/*int chooseRandomMove(int tableNumber) {
-		srand((unsigned)time(NULL));
-		int randomNumber = rand() % 9;
-		auto currentTable = board[tableNumber - 1];
-		bool full = true;
-		for (int i = 0; i < 9; i++) {
-			if (currentTable[i] == '_') full = false;
-		}
-		if (full) return -1;
-		while (currentTable[randomNumber] != '_') {
-			randomNumber = rand() % 9;
 
-		}
-		return randomNumber + 1;
-	}*/
 	ultimeTicTacToe() {
 		for (int i = 0; i < 9; i++) {
 			vector<char> tempVector(9);
@@ -133,7 +119,7 @@ public:
 		}
 	}
 	void addMove(int playerNum, int boardNum, int space) {
-		board[boardNum - 1][space - 1] = playerNum == 0 ? 'X' : 'O';
+		board[boardNum - 1][space] = playerNum == 0 ? 'X' : 'O';
 	}
 	void printBoard() {
 		for (int b = 1; b <= 3; b++) {
@@ -167,24 +153,42 @@ private:
 	vector<vector<char>> board;
 
 };
-
 int main() {
 	ultimeTicTacToe game;
-	game.printBoard();
+	player chosenPlayer;
+	player AIPlayer;
 	int move;
+	int choosePlayer;
 	int currentTable = 5;
-	cout << "Select a move from table 5: (You are X)" << endl;
-	cin >> move;
-	int randomMove;
-	while (true) {
-		game.addMove(x, currentTable, move);
-		currentTable = move;
-		randomMove = game.bestMove(o, currentTable);
-		game.addMove(o, currentTable, randomMove);
-		currentTable = randomMove;
+	int AIMove;
+	int currentBoard;
+	cout << "Choose a player:" << endl << "1. X" << endl << "2. O" << endl;
+	cin >> choosePlayer;
+	if (choosePlayer == 1) {
+		AIPlayer = o; 
+		chosenPlayer = x;
+	}
+	else {
+		AIPlayer = x;
+		chosenPlayer = o;
+	}
+	int bMove;
+
+	if (AIPlayer == x) {
+		bMove = game.bestMove(AIPlayer, 5);
+		game.addMove(AIPlayer, 5, bMove);
 		system("CLS");
-		game.printBoard(/*currentTable, move*/);
-		cout << "Select a move from table " << currentTable << ": (You are X)" << endl;
+		game.printBoard();
+	}
+	cout << "enter move:";
+	cin >> move;
+	while (true) {
+		game.addMove(chosenPlayer, 5, move - 1);
+		bMove = game.bestMove(AIPlayer, 5);
+		game.addMove(AIPlayer, 5, bMove);
+		system("CLS");
+		game.printBoard();
+		cout << "enter move:";
 		cin >> move;
 	}
 

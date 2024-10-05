@@ -1,2 +1,5 @@
 ﻿  main.cpp
+C:\Users\elith\source\repos\AI_TicTacToe\AI_TicTacToe\main.cpp(28,17): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\elith\source\repos\AI_TicTacToe\AI_TicTacToe\main.cpp(163,6): warning C4101: 'AIMove': unreferenced local variable
+C:\Users\elith\source\repos\AI_TicTacToe\AI_TicTacToe\main.cpp(164,6): warning C4101: 'currentBoard': unreferenced local variable
   AI_TicTacToe.vcxproj -> C:\Users\elith\source\repos\AI_TicTacToe\x64\Debug\AI_TicTacToe.exe

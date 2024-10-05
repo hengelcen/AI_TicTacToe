@@ -7,7 +7,8 @@
       "RelativeMoniker": "D:0:0:{FB30468C-5FE8-4A1E-8F99-9DBFDE17BC7B}|AI_TicTacToe\\AI_TicTacToe.vcxproj|solutionrelative:AI_TicTacToe\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+      "AbsoluteMoniker": "D:0:0:{FB30468C-5FE8-4A1E-8F99-9DBFDE17BC7B}|AI_TicTacToe\\AI_TicTacToe.vcxproj|C:\\Users\\elith\\source\\repos\\AI_TicTacToe\\AI_TicTacToe\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FB30468C-5FE8-4A1E-8F99-9DBFDE17BC7B}|AI_TicTacToe\\AI_TicTacToe.vcxproj|solutionrelative:AI_TicTacToe\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,23 +18,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{26341fe2-71dd-46fd-bb1b-2e51a92a0d64}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "vector",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
-              "ViewState": "AgIAAFYHAAAAAAAAAAAtwF8HAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-10-03T01:43:49.86Z",
+              "Title": "test.cpp",
+              "DocumentMoniker": "C:\\Users\\elith\\source\\repos\\AI_TicTacToe\\AI_TicTacToe\\test.cpp",
+              "RelativeDocumentMoniker": "AI_TicTacToe\\test.cpp",
+              "ToolTip": "C:\\Users\\elith\\source\\repos\\AI_TicTacToe\\AI_TicTacToe\\test.cpp",
+              "RelativeToolTip": "AI_TicTacToe\\test.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-05T18:03:35.599Z",
               "EditorCaption": ""
             },
             {
@@ -44,7 +41,7 @@
               "RelativeDocumentMoniker": "AI_TicTacToe\\main.cpp",
               "ToolTip": "C:\\Users\\elith\\source\\repos\\AI_TicTacToe\\AI_TicTacToe\\main.cpp",
               "RelativeToolTip": "AI_TicTacToe\\main.cpp",
-              "ViewState": "AgIAAKsAAAAAAAAAAAAtwLQAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAACIAAAAAAAAAAAAYwCYAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "OverriddenGroupName": "AI_TicTacToe",
               "WhenOpened": "2024-09-29T00:53:21.258Z",
